@@ -45,7 +45,9 @@ const AudioEngine = (() => {
       const ctx = ensureContext();
       if (!ctx) return;
       const now = ctx.currentTime;
-      [0, 0.24, 0.48, 0.72].forEach((offset, index) => thump(now + offset, index % 2 ? 64 : 84, 0.42));
+      [0, 0.24, 0.48, 0.72].forEach((offset, index) =>
+        thump(now + offset, index % 2 ? 64 : 84, 0.42)
+      );
     },
     inputPulse() {
       const ctx = ensureContext();
@@ -119,12 +121,14 @@ const formToObject = (form) => {
 const setupProfileForm = () => {
   const form = document.querySelector("#profile-form");
   if (!form) return;
+
   const teammates = document.querySelector("#teammates-list");
   const addButton = document.querySelector("#add-teammate");
   const success = document.querySelector("#success-message");
   const download = document.querySelector("#download-data");
 
   addTeammateRow(teammates);
+
   addButton.addEventListener("click", () => {
     AudioEngine.inputPulse();
     addTeammateRow(teammates);
@@ -144,26 +148,42 @@ const setupProfileForm = () => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     AudioEngine.drums();
-    const payload = formToObject(form);
-    localStorage.setItem("evjfProfilUtilisateur", JSON.stringify(payload, null, 2));
 
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const payload = formToObject(form);
+    localStorage.setItem(
+      "evjfProfilUtilisateur",
+      JSON.stringify(payload, null, 2)
+    );
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json",
+    });
     download.href = URL.createObjectURL(blob);
 
+    // ✅ NETLIFY FIXÉ ICI
     if (form.dataset.netlify === "true") {
       try {
+        const formData = new FormData(form);
+
+        const data = new URLSearchParams();
+        data.append("form-name", "profil-evjf");
+
+        for (const [key, value] of formData.entries()) {
+          data.append(key, value);
+        }
+
         await fetch("/", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  body: new URLSearchParams({
-    "form-name": "profil-evjf",
-    ...Object.fromEntries(new FormData(form))
-  }).toString(),
-});
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: data.toString(),
+        });
       } catch (error) {
-        console.info("Envoi Netlify indisponible en local, copie conservée dans le navigateur.", error);
+        console.info(
+          "Envoi Netlify indisponible en local, copie conservée dans le navigateur.",
+          error
+        );
       }
     }
 
@@ -182,6 +202,7 @@ const setupGamePage = () => {
   const errorMessage = document.querySelector("#error-message");
   const entertainmentButton = document.querySelector("#entertainment-button");
   const videoStage = document.querySelector("#video-stage");
+
   const messages = [
     "Connexion au serveur EVJF...",
     "Analyse du profil joueur...",
@@ -189,6 +210,7 @@ const setupGamePage = () => {
     "Chargement des coéquipières...",
     "Finalisation...",
   ];
+
   const videos = [
     "https://www.youtube.com/embed/00oJQDwNDyY",
     "https://www.youtube.com/embed/BfW72FjVC6k",
@@ -201,6 +223,7 @@ const setupGamePage = () => {
     "https://www.youtube.com/embed/__ON3C3GRis",
     "https://www.youtube.com/embed/uAa4lMf3jSg",
   ];
+
   let percent = 0;
   let videoIndex = 0;
 
@@ -208,14 +231,17 @@ const setupGamePage = () => {
     percent = Math.min(100, percent + Math.ceil(Math.random() * 4));
     progressBar.style.width = `${percent}%`;
     progressPercent.textContent = `${percent}%`;
-    loadingText.textContent = messages[Math.min(messages.length - 1, Math.floor(percent / 22))];
+    loadingText.textContent =
+      messages[Math.min(messages.length - 1, Math.floor(percent / 22))];
 
     if (percent >= 100) {
       window.clearInterval(interval);
       loadingText.textContent = messages.at(-1);
+
       window.setTimeout(() => {
         errorMessage.hidden = false;
         AudioEngine.drums();
+
         window.setTimeout(() => {
           entertainmentButton.hidden = false;
         }, 3000);
@@ -227,6 +253,7 @@ const setupGamePage = () => {
     AudioEngine.drums();
     const src = videos[videoIndex % videos.length];
     videoIndex += 1;
+
     videoStage.innerHTML = `
       <iframe
         src="${src}?autoplay=1&rel=0"
@@ -246,6 +273,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const startAmbience = () => AudioEngine.machine();
   window.setTimeout(startAmbience, 250);
-  document.addEventListener("pointerdown", startAmbience, { once: true });
+  document.addEventListener("pointerdown", startAmbience, {
+    once: true,
+  });
 });
-                                       
