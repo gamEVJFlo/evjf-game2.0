@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVJF — Définir mon profil utilisateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-profile">
+    <div class="ambient-runes" aria-hidden="true"></div>
+    <div class="torches" aria-hidden="true"><span></span><span></span></div>
+    <div class="gear-field" aria-hidden="true">
+      <span class="gear gear-a">⚙</span>
+      <span class="gear gear-b">⚙</span>
+      <span class="gear gear-c">⚙</span>
+      <span class="gear gear-d">⚙</span>
+    </div>
+    <main class="shell">
+      <section class="parchment" aria-labelledby="profile-title">
+        <p class="eyebrow">Protocole 01</p>
+        <h1 id="profile-title">Définir mon profil utilisateur</h1>
+        <p class="intro">Chaque réponse nourrit le moteur de simulation. Les tambours valident silencieusement chaque donnée transmise.</p>
+
+        <form id="profile-form" name="profil-evjf" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="profil-evjf" />
+          <p class="hidden"><label>Ne pas remplir : <input name="bot-field" /></label></p>
+
+          <fieldset>
+            <legend>🟣 1. CODE JOUEUR</legend>
+            <label>“Avant de lancer la simulation, définis ton identifiant de joueur. Ce code ne pourra pas être modifié.”
+              <input type="text" name="code_joueur" required placeholder="Ex : FUTURE-BOSS-01" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 2. EFFECTIF DE LA MISSION</legend>
+            <label>“Combien de coéquipières souhaites-tu intégrer à cette mission secrète ?”
+              <input type="number" name="effectif_mission" min="0" required placeholder="Nombre de coéquipières" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 3. PROFIL DES ALLIÉS</legend>
+            <p>“Renseigne les membres de ton équipe (Nom / Prénom / Identifiant) :”</p>
+            <div id="teammates-list" class="teammates-list"></div>
+            <button type="button" class="small-button" id="add-teammate">Ajouter une coéquipière</button>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 4. DURÉE OPTIMALE</legend>
+            <p>“Une mission d’exfiltration émotionnelle réussie dure…”</p>
+            <div class="option-grid">
+              <label><input type="radio" name="duree_optimale" value="1 journée : efficacité maximale" required />1 journée : efficacité maximale</label>
+              <label><input type="radio" name="duree_optimale" value="1 week-end : équilibre parfait" />1 week-end : équilibre parfait</label>
+              <label><input type="radio" name="duree_optimale" value="1 semaine : immersion totale" />1 semaine : immersion totale</label>
+              <label><input type="radio" name="duree_optimale" value="1 mois : transformation complète" />1 mois : transformation complète</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 5. TEMPS DE RÉCUPÉRATION</legend>
+            <p>“Après mission, ton système a besoin de…”</p>
+            <div class="option-grid">
+              <label><input type="radio" name="temps_recuperation" value="0h : on repart direct" required />0h : on repart direct</label>
+              <label><input type="radio" name="temps_recuperation" value="1 journée : reset rapide" />1 journée : reset rapide</label>
+              <label><input type="radio" name="temps_recuperation" value="3 jours : récupération standard" />3 jours : récupération standard</label>
+              <label><input type="radio" name="temps_recuperation" value="3 semaines : traumatisme positif" />3 semaines : traumatisme positif</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 6. NIVEAU DE CHAOS</legend>
+            <p>“Quel est ton niveau de chaos acceptable ?”</p>
+            <div class="option-grid">
+              <label><input type="radio" name="niveau_chaos" value="Nintendogs : douceur et contrôle" required />Nintendogs : douceur et contrôle</label>
+              <label><input type="radio" name="niveau_chaos" value="Mario : équilibre entre le fun d'un jeu 2D avec l'adrénaline des boss" />Mario : équilibre entre le fun d'un jeu 2D avec l'adrénaline des boss</label>
+              <label><input type="radio" name="niveau_chaos" value="Resident Evil : chaos total et imprévisible" />Resident Evil : chaos total et imprévisible</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 7. MODULES DE MISSION</legend>
+            <p>“Attribue un niveau d’importance à chaque module :”</p>
+            <div class="slider-list">
+              <label>Cooking Mama → chill & food <span class="slider-value">5/10</span><input type="range" name="cooking_mama" min="0" max="10" value="5" /></label>
+              <label>Barbie coiffeuse → soin & self-care <span class="slider-value">5/10</span><input type="range" name="barbie_coiffeuse" min="0" max="10" value="5" /></label>
+              <label>Trivial Pursuit → surprises & découvertes <span class="slider-value">5/10</span><input type="range" name="trivial_pursuit" min="0" max="10" value="5" /></label>
+              <label>Need for Speed → énergie & mouvement <span class="slider-value">5/10</span><input type="range" name="need_for_speed" min="0" max="10" value="5" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>🟣 8. TERRAIN DE MISSION</legend>
+            <p>“Sur quel terrain la mission doit-elle se dérouler ?”</p>
+            <div class="option-grid">
+              <label><input type="radio" name="terrain_mission" value="Urbain : quêtes secondaires à tous les coins de rue." required />Urbain : quêtes secondaires à tous les coins de rue.</label>
+              <label><input type="radio" name="terrain_mission" value="Montagne : une seule route possible." />Montagne : une seule route possible.</label>
+              <label><input type="radio" name="terrain_mission" value="Plage : conquête de la terre et de la mer." />Plage : conquête de la terre et de la mer.</label>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="mystery-button">Envoyer les données</button>
+            <a class="mystery-button ghost" data-drum-link href="index.html">Revenir au menu principal</a>
+          </div>
+        </form>
+        <div id="success-message" class="success-message" role="status" hidden>
+          Collecte de données réussie. Veuillez lancer la partie en temps et en heure.
+          <a id="download-data" class="download-link" href="#" download="profil-evjf.json">Télécharger une copie JSON</a>
+          <a class="mystery-button ghost success-home" data-drum-link href="index.html">Revenir au menu principal</a>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
+
