@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVJF — Débuter la partie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-game">
+    <div class="ambient-runes" aria-hidden="true"></div>
+    <div class="gear-field" aria-hidden="true">
+      <span class="gear gear-a">⚙</span>
+      <span class="gear gear-b">⚙</span>
+      <span class="gear gear-c">⚙</span>
+      <span class="gear gear-d">⚙</span>
+    </div>
+    <main class="shell game-shell">
+      <section class="game-console scanline" aria-labelledby="game-title">
+        <p class="eyebrow">Protocole 02</p>
+        <h1 id="game-title">Débuter la partie</h1>
+        <div class="loading-zone" aria-live="polite">
+          <p id="loading-text">Connexion au serveur EVJF...</p>
+          <div class="progress-frame"><div id="progress-bar" class="progress-bar"></div></div>
+          <p id="progress-percent">0%</p>
+        </div>
+        <p id="error-message" class="error-message" hidden>ERREUR 703 : LA DATE DU SYSTÈME NE CORRESPOND PAS À CELLE DU CALENDRIER</p>
+        <button id="entertainment-button" class="mystery-button entertainment" type="button" hidden>Afin de patienter, nous vous proposons un divertissement</button>
+        <div id="video-stage" class="video-stage" aria-live="polite"></div>
+        <a class="mystery-button ghost" data-drum-link href="index.html">Revenir au menu principal</a>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
