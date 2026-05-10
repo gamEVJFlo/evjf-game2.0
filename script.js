@@ -153,10 +153,15 @@ const setupProfileForm = () => {
     if (form.dataset.netlify === "true") {
       try {
         await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(new FormData(form)).toString(),
-        });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  body: new URLSearchParams({
+    "form-name": "profil-evjf",
+    ...Object.fromEntries(new FormData(form))
+  }).toString(),
+});
       } catch (error) {
         console.info("Envoi Netlify indisponible en local, copie conservée dans le navigateur.", error);
       }
